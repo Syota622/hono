@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>コミコミ株式会社 | クラウドインフラストラクチャの専門家</title>
+        <style>
+            :root {
+                --primary-color: #2b5876;
+                --secondary-color: #4e4376;
+                --accent-color: #e67e22;
+                --light-color: #f9f9f9;
+                --dark-color: #2c3e50;
+                --text-color: #333;
+                --border-radius: 6px;
+                --transition: all 0.3s ease;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Segoe UI', 'Helvetica', sans-serif;
+            }
+
+            body {
+                line-height: 1.6;
+                color: var(--text-color);
+                background-color: var(--light-color);
+            }
+
+            header {
+                background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+                color: white;
+                padding: 1.2rem 0;
+                position: fixed;
+                width: 100%;
+                top: 0;
+                z-index: 1000;
+                box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .container {
+                width: 90%;
+                max-width: 1280px;
+                margin: 0 auto;
+            }
+
+            .header-content {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .logo {
+                font-size: 1.7rem;
+                font-weight: 700;
+                letter-spacing: 1px;
+            }
+
+            .logo-accent {
+                color: var(--accent-color);
+                font-weight: 800;
+            }
+
+            nav ul {
+                display: flex;
+                list-style: none;
+            }
+
+            nav ul li {
+                margin-left: 2rem;
+            }
+
+            nav ul li a {
+                color: white;
+                text-decoration: none;
+                font-weight: 500;
+                padding: 0.5rem;
+                position: relative;
+                transition: var(--transition);
+            }
+
+            nav ul li a::after {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 2px;
+                bottom: 0;
+                left: 0;
+                background-color: var(--accent-color);
+                transition: var(--transition);
+            }
+
+            nav ul li a:hover::after {
+                width: 100%;
+            }
+
+            .mobile-menu-btn {
+                display: none;
+                cursor: pointer;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+            }
+
+            .banner {
+                padding-top: 5rem;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 40%, rgba(249, 249, 249, 0.8) 100%), url('/api/placeholder/1400/900') center/cover no-repeat;
+            }
+
+            .banner-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+                align-items: center;
+            }
+
+            .banner-content {
+                padding: 2rem 0;
+            }
+
+            .banner-heading {
+                font-size: 2.8rem;
+                font-weight: 700;
+                line-height: 1.2;
+                margin-bottom: 1.5rem;
+                color: var(--primary-color);
+            }
+
+            .banner-subheading {
+                font-size: 1.2rem;
+                margin-bottom: 2rem;
+                color: var(--dark-color);
+            }
+
+            .banner-buttons {
+                display: flex;
+                gap: 1rem;
+            }
+
+            .btn {
+                display: inline-block;
+                padding: 0.8rem 2rem;
+                border-radius: var(--border-radius);
+                text-decoration: none;
+                font-weight: 600;
+                transition: var(--transition);
+                text-align: center;
+            }
+
+            .btn-primary {
+                background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+                color: white;
+                border: none;
+            }
+
+            .btn-primary:hover {
+                background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                transform: translateY(-2px);
+            }
+
+            .btn-secondary {
+                background-color: transparent;
+                color: var(--primary-color);
+                border: 2px solid var(--primary-color);
+            }
+
+            .btn-secondary:hover {
+                background-color: var(--primary-color);
+                color: white;
+            }
+
+            .banner-image img {
+                width: 100%;
+                height: auto;
+                border-radius: var(--border-radius);
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .services {
+                padding: 5rem 0;
+                background-color: white;
+            }
+
+            .section-header {
+                margin-bottom: 3rem;
+                text-align: center;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+                color: var(--primary-color);
+                position: relative;
+                display: inline-block;
+                margin-bottom: 1rem;
+            }
+
+            .section-title::after {
+                content: "";
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 50px;
+                height: 3px;
+                background-color: var(--accent-color);
+            }
+
+            .section-description {
+                max-width: 700px;
+                margin: 0 auto;
+                color: #666;
+            }
+
+            .services-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+            }
+
+            .service-card {
+                background-color: var(--light-color);
+                border-radius: var(--border-radius);
+                overflow: hidden;
+                transition: var(--transition);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+                position: relative;
+                z-index: 1;
+            }
+
+            .service-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(to bottom right, var(--primary-color), var(--secondary-color));
+                opacity: 0;
+                z-index: -1;
+                transition: var(--transition);
+            }
+
+            .service-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .service-card:hover::before {
+                opacity: 1;
+            }
+
+            .service-card:hover .service-content {
+                color: white;
+            }
+
+            .service-card:hover h3 {
+                color: var(--light-color);
+            }
+
+            .service-card:hover p {
+                color: rgba(255, 255, 255, 0.9);
+            }
+
+            .service-icon {
+                height: 180px;
+                background-color: var(--primary-color);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                font-size: 3.5rem;
+                font-weight: 700;
+            }
+
+            .service-content {
+                padding: 2rem;
+                transition: var(--transition);
+            }
+
+            .service-content h3 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+                color: var(--primary-color);
+                transition: var(--transition);
+            }
+
+            .service-content p {
+                transition: var(--transition);
+            }
+
+            .about {
+                padding: 5rem 0;
+                background-color: var(--light-color);
+            }
+
+            .about-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 4rem;
+                align-items: center;
+            }
+
+            .about-image {
+                position: relative;
+            }
+
+            .about-img {
+                width: 100%;
+                border-radius: var(--border-radius);
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .about-shape {
+                position: absolute;
+                width: 200px;
+                height: 200px;
+                background-color: var(--accent-color);
+                border-radius: 50%;
+                opacity: 0.1;
+                z-index: -1;
+            }
+
+            .shape-1 {
+                top: -30px;
+                left: -30px;
+            }
+
+            .shape-2 {
+                bottom: -30px;
+                right: -30px;
+            }
+
+            .about-content h3 {
+                font-size: 1.8rem;
+                color: var(--primary-color);
+                margin-bottom: 1.5rem;
+            }
+
+            .about-text {
+                margin-bottom: 2rem;
+            }
+
+            .features {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+                margin-top: 2rem;
+            }
+
+            .feature {
+                background-color: white;
+                padding: 1.5rem;
+                border-radius: var(--border-radius);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+                transition: var(--transition);
+            }
+
+            .feature:hover {
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                transform: translateY(-5px);
+            }
+
+            .feature-icon {
+                width: 50px;
+                height: 50px;
+                background: linear-gradient(to bottom right, var(--primary-color), var(--secondary-color));
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .feature h4 {
+                font-size: 1.2rem;
+                color: var(--primary-color);
+                margin-bottom: 0.5rem;
+            }
+
+            .cta {
+                padding: 5rem 0;
+                background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+                color: white;
+                text-align: center;
+            }
+
+            .cta h2 {
+                font-size: 2.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .cta p {
+                font-size: 1.2rem;
+                max-width: 700px;
+                margin: 0 auto 2rem;
+            }
+
+            .cta-btn {
+                background-color: var(--accent-color);
+                color: white;
+                padding: 1rem 2.5rem;
+                border-radius: var(--border-radius);
+                font-size: 1.1rem;
+                font-weight: 600;
+                display: inline-block;
+                text-decoration: none;
+                transition: var(--transition);
+                border: 2px solid var(--accent-color);
+            }
+
+            .cta-btn:hover {
+                background-color: transparent;
+                color: white;
+            }
+
+            .contact {
+                padding: 5rem 0;
+                background-color: white;
+            }
+
+            .contact-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 3rem;
+            }
+
+            .contact-info h3 {
+                font-size: 1.8rem;
+                color: var(--primary-color);
+                margin-bottom: 1.5rem;
+            }
+
+            .contact-text {
+                margin-bottom: 2rem;
+            }
+
+            .contact-details {
+                display: grid;
+                gap: 1.5rem;
+            }
+
+            .contact-item {
+                display: flex;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .contact-icon {
+                min-width: 40px;
+                height: 40px;
+                background: linear-gradient(to bottom right, var(--primary-color), var(--secondary-color));
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+            }
+
+            .contact-item h4 {
+                font-size: 1.1rem;
+                color: var(--primary-color);
+                margin-bottom: 0.3rem;
+            }
+
+            .contact-form {
+                background-color: var(--light-color);
+                padding: 2rem;
+                border-radius: var(--border-radius);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            }
+
+            .form-group {
+                margin-bottom: 1.5rem;
+            }
+
+            .form-label {
+                display: block;
+                margin-bottom: 0.5rem;
+                font-weight: 600;
+                color: var(--dark-color);
+            }
+
+            .form-control {
+                width: 100%;
+                padding: 0.8rem 1rem;
+                border: 1px solid #ddd;
+                border-radius: var(--border-radius);
+                font-size: 1rem;
+                transition: var(--transition);
+            }
+
+            .form-control:focus {
+                border-color: var(--primary-color);
+                outline: none;
+                box-shadow: 0 0 0 3px rgba(43, 88, 118, 0.1);
+            }
+
+            textarea.form-control {
+                min-height: 150px;
+                resize: vertical;
+            }
+
+            .form-btn {
+                background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+                color: white;
+                border: none;
+                padding: 0.8rem 2rem;
+                border-radius: var(--border-radius);
+                font-size: 1rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: var(--transition);
+                width: 100%;
+            }
+
+            .form-btn:hover {
+                background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            footer {
+                background-color: var(--dark-color);
+                color: white;
+                padding: 4rem 0 2rem;
+            }
+
+            .footer-grid {
+                display: grid;
+                grid-template-columns: 2fr 1fr 1fr 1fr;
+                gap: 2rem;
+                margin-bottom: 3rem;
+            }
+
+            .footer-about h3 {
+                font-size: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .footer-about p {
+                color: rgba(255, 255, 255, 0.7);
+                margin-bottom: 1.5rem;
+            }
+
+            .social-links {
+                display: flex;
+                gap: 1rem;
+            }
+
+            .social-link {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 40px;
+                height: 40px;
+                background-color: rgba(255, 255, 255, 0.1);
+                border-radius: 50%;
+                color: white;
+                text-decoration: none;
+                transition: var(--transition);
+            }
+
+            .social-link:hover {
+                background-color: var(--accent-color);
+                transform: translateY(-3px);
+            }
+
+            .footer-links h4 {
+                font-size: 1.2rem;
+                margin-bottom: 1.5rem;
+                position: relative;
+                padding-bottom: 0.5rem;
+            }
+
+            .footer-links h4::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 30px;
+                height: 2px;
+                background-color: var(--accent-color);
+            }
+
+            .footer-links ul {
+                list-style: none;
+            }
+
+            .footer-links ul li {
+                margin-bottom: 0.8rem;
+            }
+
+            .footer-links ul li a {
+                color: rgba(255, 255, 255, 0.7);
+                text-decoration: none;
+                transition: var(--transition);
+            }
+
+            .footer-links ul li a:hover {
+                color: white;
+                padding-left: 5px;
+            }
+
+            .footer-newsletter h4 {
+                font-size: 1.2rem;
+                margin-bottom: 1.5rem;
+                position: relative;
+                padding-bottom: 0.5rem;
+            }
+
+            .footer-newsletter h4::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 30px;
+                height: 2px;
+                background-color: var(--accent-color);
+            }
+
+            .footer-newsletter p {
+                color: rgba(255, 255, 255, 0.7);
+                margin-bottom: 1rem;
+            }
+
+            .newsletter-form {
+                display: flex;
+            }
+
+            .newsletter-input {
+                flex: 1;
+                padding: 0.8rem 1rem;
+                border: none;
+                border-radius: var(--border-radius) 0 0 var(--border-radius);
+                font-size: 0.9rem;
+            }
+
+            .newsletter-btn {
+                background-color: var(--accent-color);
+                color: white;
+                border: none;
+                padding: 0 1.2rem;
+                border-radius: 0 var(--border-radius) var(--border-radius) 0;
+                cursor: pointer;
+                transition: var(--transition);
+            }
+
+            .newsletter-btn:hover {
+                background-color: #d35400;
+            }
+
+            .copyright {
+                text-align: center;
+                padding-top: 2rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                color: rgba(255, 255, 255, 0.7);
+                font-size: 0.9rem;
+            }
+
+            @media screen and (max-width: 1024px) {
+                .banner-heading {
+                    font-size: 2.3rem;
+                }
+
+                .footer-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+
+            @media screen and (max-width: 768px) {
+                .mobile-menu-btn {
+                    display: block;
+                }
+
+                nav ul {
+                    display: none;
+                }
+
+                .banner-grid,
+                .about-grid,
+                .contact-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .banner-image {
+                    order: -1;
+                }
+
+                .about-shape {
+                    width: 150px;
+                    height: 150px;
+                }
+
+                .cta h2 {
+                    font-size: 2rem;
+                }
+            }
+
+            @media screen and (max-width: 576px) {
+                .section-title {
+                    font-size: 1.8rem;
+                }
+
+                .banner-heading {
+                    font-size: 1.8rem;
+                }
+
+                .banner-buttons {
+                    flex-direction: column;
+                }
+
+                .footer-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .features {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <header>
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <span class="logo-accent">コミコミ</span>株式会社
+                    </div>
+                    <button class="mobile-menu-btn">☰</button>
+                    <nav>
+                        <ul>
+                            <li><a href="#banner">ホーム</a></li>
+                            <li><a href="#services">サービス</a></li>
+                            <li><a href="#about">私たちについて</a></li>
+                            <li><a href="#contact">お問い合わせ</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <section class="banner" id="banner">
+            <div class="container">
+                <div class="banner-grid">
+                    <div class="banner-content">
+                        <h1 class="banner-heading">クラウドインフラストラクチャの<br>専門技術で<span class="logo-accent">ビジネスを加速</span></h1>
+                        <p class="banner-subheading">データ基盤構築からセキュリティ、DevOps、SREまで、AWS環境に特化した包括的なソリューションを提供します。</p>
+                        <div class="banner-buttons">
+                            <a href="#contact" class="btn btn-primary">無料相談のお申し込み</a>
+                            <a href="#services" class="btn btn-secondary">サービス詳細</a>
+                        </div>
+                    </div>
+                    <div class="banner-image">
+                        <img src="/api/placeholder/700/500" alt="クラウドインフラストラクチャイメージ">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="services" id="services">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">サービス</h2>
+                    <p class="section-description">AWSクラウド環境に特化した、4つの専門分野でお客様のビジネス課題を解決します。</p>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">SRE</div>
+                        <div class="service-content">
+                            <h3>サイト信頼性エンジニアリング</h3>
+                            <p>可用性とパフォーマンスを最大化するSREサービス。インフラの自動化、モニタリング体制の確立、インシデント対応プロセスの整備を通じて、24時間365日安定したサービス運用を実現します。
+                            </p>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">DEV</div>
+                        <div class="service-content">
+                            <h3>DevOps実装支援</h3>
+                            <p>開発と運用の壁を取り払い、迅速かつ安全なデプロイメントを実現。CI/CDパイプラインの構築、Infrastructure as
+                                Code、自動テストの導入など、DevOpsプラクティスの確立を総合的に支援します。</p>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">DATA</div>
+                        <div class="service-content">
+                            <h3>データプラットフォーム構築</h3>
+                            <p>膨大なデータから価値を創出するデータ基盤を構築。データレイク、データウェアハウス、リアルタイム分析基盤など、目的に応じた最適なデータアーキテクチャを設計・実装します。</p>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">SEC</div>
+                        <div class="service-content">
+                            <h3>クラウドセキュリティ</h3>
+                            <p>AWS環境における包括的なセキュリティ対策を提供。脆弱性診断、セキュリティ設計レビュー、監査対応、インシデント対応など、クラウド時代のセキュリティ課題を解決します。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about" id="about">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">私たちについて</h2>
+                    <p class="section-description">クラウドネイティブ時代のビジネスを支える技術パートナー</p>
+                </div>
+                <div class="about-grid">
+                    <div class="about-image">
+                        <div class="about-shape shape-1"></div>
+                        <img src="/api/placeholder/600/400" alt="チームワーク" class="about-img">
+                        <div class="about-shape shape-2"></div>
+                    </div>
+                    <div class="about-content">
+                        <h3>高度な専門性と豊富な経験</h3>
+                        <div class="about-text">
+                            <p>コミコミ株式会社は、AWSをメインとしたクラウド環境の構築・運用に特化したIT企業です。私たちのチームは、AWSアーキテクチャの設計から、デプロイメント自動化、セキュリティ対策、24時間365日の運用監視まで、お客様のクラウドインフラに関するあらゆる課題を解決します。
+                            </p>
+                            <p>多様な業界における導入実績と、最新技術への深い知見を活かし、お客様のビジネスに最適なソリューションを提供します。</p>
+                        </div>
+                        <div class="features">
+                            <div class="feature">
+                                <div class="feature-icon">★</div>
+                                <h4>AWS認定資格</h4>
+                                <p>各種AWS認定資格保有者が多数在籍</p>
+                            </div>
+                            <div class="feature">
+                                <div class="feature-icon">✓</div>
+                                <h4>豊富な実績</h4>
+                                <p>様々な業界での導入・運用経験</p>
+                            </div>
+                            <div class="feature">
+                                <div class="feature-icon">⚙</div>
+                                <h4>ワンストップ</h4>
+                                <p>設計から構築、運用まで一貫対応</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta">
+            <div class="container">
+                <h2>クラウドインフラの課題をお持ちですか？</h2>
+                <p>AWS環境の最適化、セキュリティ強化、運用効率化など、クラウドに関するご相談はお気軽にお問い合わせください。専門エンジニアが丁寧にご対応いたします。</p>
+                <a href="#contact" class="cta-btn">無料相談のお申し込み</a>
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">お問い合わせ</h2>
+                    <p class="section-description">ご質問、お見積りのご依頼など、お気軽にお問い合わせください</p>
+                </div>
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3>お問い合わせ情報</h3>
+                        <p class="contact-text">サービスに関するご質問、お見積もりのご依頼など、お気軽にお問い合わせください。専門のスタッフが丁寧にご対応いたします。</p>
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <div class="contact-icon">📍</div>
+                                <div>
+                                    <h4>所在地</h4>
+                                    <p>〒100-0001<br>東京都千代田区丸の内1-1-1
