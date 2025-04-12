@@ -1,7 +1,4 @@
 % ls -la
-total 0
-.
-..
 .git
 Astro.js
 Electron
