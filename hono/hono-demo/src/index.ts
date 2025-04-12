@@ -27,6 +27,12 @@ app.get("/", (c) => {
   return c.text("Hello Hono!");
 });
 
+// 全てのpostを取得
+// curl http://localhost:8787/entry
+app.get("/entry", (c) => {
+  return c.json(blogPosts);
+});
+
 // blogPostsからtitle、contentを取得して返す
 // curl http://localhost:8787/entry/1
 app.get("/entry/:id", (c) => {
