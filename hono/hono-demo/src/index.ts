@@ -49,6 +49,7 @@ app.get("/entry/:id", (c) => {
 app.post("/entry", async (c) => {
   const { title, content } = await c.req.json();
   blogPosts.push({ id: String(blogPosts.length + 1), title, content });
+  // 0から始まるため-1をして新しいpostを取得
   const newPost = blogPosts[blogPosts.length - 1];
   return c.json({
     "new post": newPost
