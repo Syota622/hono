@@ -28,6 +28,7 @@ app.get("/", (c) => {
 });
 
 // blogPostsからtitle、contentを取得して返す
+// curl http://localhost:8787/entry/1
 app.get("/entry/:id", (c) => {
   const id = c.req.param("id");
   const post = blogPosts.find((post) => post.id === id);
@@ -41,6 +42,17 @@ app.get("/entry/:id", (c) => {
     "title": post.title,
     "content": post.content
   });
+});
+
+// POST から blogPostsに追加
+// curl -X POST http://localhost:8787/entry -d '{"title":"blog4","content":"content4"}'
+app.post("/entry", async (c) => {
+  const { title, content } = await c.req.json();
+  blogPosts.push({ id: String(blogPosts.length + 1), title, content });
+  const newPost = blogPosts[blogPosts.length - 1];
+  return c.json({
+    "new post": newPost
+  }, 201);
 });
 
 export default app
